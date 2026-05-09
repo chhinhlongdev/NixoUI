@@ -40,14 +40,30 @@ function NixoUI:CreateWindow(config)
     LoadingCorner.CornerRadius = UDim.new(0, 15)
     LoadingCorner.Parent = LoadingFrame
     
-    -- Animated GIF Loader
-    local LoaderImage = Instance.new("ImageLabel")
-    LoaderImage.Parent = LoadingFrame
-    LoaderImage.BackgroundTransparency = 1
-    LoaderImage.Position = UDim2.new(0.5, -60, 0, 30)
-    LoaderImage.Size = UDim2.new(0, 120, 0, 120)
-    LoaderImage.Image = "https://raw.githubusercontent.com/chhinhlongdev/NixoUI/refs/heads/main/assets/loader.gif"
-    LoaderImage.ScaleType = Enum.ScaleType.Fit
+    -- Animated Loader (Custom Circle)
+    local LoaderContainer = Instance.new("Frame")
+    LoaderContainer.Parent = LoadingFrame
+    LoaderContainer.BackgroundTransparency = 1
+    LoaderContainer.Position = UDim2.new(0.5, -60, 0, 30)
+    LoaderContainer.Size = UDim2.new(0, 120, 0, 120)
+    
+    local LoaderCircle = Instance.new("ImageLabel")
+    LoaderCircle.Parent = LoaderContainer
+    LoaderCircle.BackgroundTransparency = 1
+    LoaderCircle.Size = UDim2.new(1, 0, 1, 0)
+    LoaderCircle.Image = "rbxassetid://3570695787" -- Circle image
+    LoaderCircle.ImageColor3 = Color3.fromRGB(100, 150, 255)
+    
+    -- Rotate animation for loader
+    local rotationAngle = 0
+    local rotationConnection
+    rotationConnection = RunService.RenderStepped:Connect(function()
+        rotationAngle = rotationAngle + 5
+        LoaderCircle.Rotation = rotationAngle
+        if not LoadingFrame or not LoadingFrame.Parent then
+            rotationConnection:Disconnect()
+        end
+    end)
     
     local LoadingTitle = Instance.new("TextLabel")
     LoadingTitle.Parent = LoadingFrame
@@ -120,10 +136,14 @@ function NixoUI:CreateWindow(config)
     task.wait(loadingDuration)
     
     -- Fade out loading screen
+    if rotationConnection then
+        rotationConnection:Disconnect()
+    end
+    
     TweenService:Create(LoadingFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
         BackgroundTransparency = 1
     }):Play()
-    TweenService:Create(LoaderImage, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
+    TweenService:Create(LoaderCircle, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
         ImageTransparency = 1
     }):Play()
     TweenService:Create(LoadingTitle, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
@@ -213,14 +233,14 @@ function NixoUI:CreateWindow(config)
 
     
     -- Minimized Icon
-    local MinimizedIcon = Instance.new("ImageButton")
+    local MinimizedIcon = Instance.new("TextButton")
     MinimizedIcon.Parent = ScreenGui
     MinimizedIcon.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
     MinimizedIcon.Position = UDim2.new(0, 10, 1, -60)
     MinimizedIcon.Size = UDim2.new(0, 50, 0, 50)
-    MinimizedIcon.Image = "https://raw.githubusercontent.com/chhinhlongdev/NixoUI/refs/heads/main/assets/icon.png"
-    MinimizedIcon.ScaleType = Enum.ScaleType.Fit
-    MinimizedIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    MinimizedIcon.Font = Enum.Font.GothamBold
+    MinimizedIcon.Text = "📦"
+    MinimizedIcon.TextSize = 24
     MinimizedIcon.Visible = false
     MinimizedIcon.AutoButtonColor = false
     
