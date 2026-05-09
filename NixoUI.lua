@@ -733,6 +733,78 @@ function NixoUI:CreateWindow(config)
             return Section
         end
         
+        -- Create Discord Button
+        function Tab:CreateDiscord(config)
+            local DiscordBtn = Instance.new("TextButton")
+            DiscordBtn.Parent = TabContent
+            DiscordBtn.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
+            DiscordBtn.Size = UDim2.new(1, 0, 0, 45)
+            DiscordBtn.Font = Enum.Font.GothamBold
+            DiscordBtn.Text = "🔗 " .. (config.Name or "Join Discord Server")
+            DiscordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DiscordBtn.TextSize = 14
+            DiscordBtn.AutoButtonColor = false
+            
+            local BtnCorner = Instance.new("UICorner")
+            BtnCorner.CornerRadius = UDim.new(0, 8)
+            BtnCorner.Parent = DiscordBtn
+            
+            local SubLabel = Instance.new("TextLabel")
+            SubLabel.Parent = DiscordBtn
+            SubLabel.BackgroundTransparency = 1
+            SubLabel.Position = UDim2.new(0, 0, 1, -18)
+            SubLabel.Size = UDim2.new(1, 0, 0, 15)
+            SubLabel.Font = Enum.Font.Gotham
+            SubLabel.Text = config.Invite or "discord.gg/invite"
+            SubLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
+            SubLabel.TextSize = 11
+            
+            DiscordBtn.MouseButton1Click:Connect(function()
+                -- Copy to clipboard
+                if setclipboard then
+                    setclipboard(config.Invite or "")
+                    
+                    -- Visual feedback
+                    local originalText = DiscordBtn.Text
+                    DiscordBtn.Text = "✅ Copied to Clipboard!"
+                    
+                    TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {
+                        BackgroundColor3 = Color3.fromRGB(67, 181, 129)
+                    }):Play()
+                    
+                    task.wait(2)
+                    
+                    DiscordBtn.Text = originalText
+                    TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {
+                        BackgroundColor3 = Color3.fromRGB(88, 101, 242)
+                    }):Play()
+                else
+                    -- Fallback if setclipboard not available
+                    DiscordBtn.Text = "⚠️ Clipboard not supported"
+                    task.wait(2)
+                    DiscordBtn.Text = config.Name or "Join Discord Server"
+                end
+                
+                if config.Callback then
+                    config.Callback()
+                end
+            end)
+            
+            DiscordBtn.MouseEnter:Connect(function()
+                TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {
+                    BackgroundColor3 = Color3.fromRGB(108, 121, 255)
+                }):Play()
+            end)
+            
+            DiscordBtn.MouseLeave:Connect(function()
+                TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {
+                    BackgroundColor3 = Color3.fromRGB(88, 101, 242)
+                }):Play()
+            end)
+            
+            return DiscordBtn
+        end
+        
         return Tab
     end
     
