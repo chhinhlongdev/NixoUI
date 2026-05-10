@@ -117,7 +117,7 @@ function NixoUI:CreateWindow(config)
     PercentLabel.TextSize = 13
     
     -- Animate Loading with percentage
-    local loadingDuration = 5
+    local loadingDuration = 2
     local startTime = tick()
     
     local loadingConnection
@@ -230,14 +230,14 @@ function NixoUI:CreateWindow(config)
     -- Progress bar animation
     task.spawn(function()
         task.wait(0.5)
-        TweenService:Create(NotifProgress, TweenInfo.new(4, Enum.EasingStyle.Linear), {
+        TweenService:Create(NotifProgress, TweenInfo.new(3, Enum.EasingStyle.Linear), {
             Size = UDim2.new(0, 0, 0, 3)
         }):Play()
     end)
     
-    -- Auto dismiss after 4.5 seconds
+    -- Auto dismiss after 3.5 seconds
     task.spawn(function()
-        task.wait(4.5)
+        task.wait(3.5)
         TweenService:Create(WelcomeNotification, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
             Position = UDim2.new(1, 20, 0, 20)
         }):Play()
@@ -252,7 +252,7 @@ function NixoUI:CreateWindow(config)
     MainFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
     MainFrame.BorderSizePixel = 0
     MainFrame.Position = UDim2.new(0.5, -450, 0.5, -300)
-    MainFrame.Size = UDim2.new(0, 900, 0, 600)
+    MainFrame.Size = UDim2.new(0, 0, 0, 0)
     MainFrame.Active = true
     MainFrame.Draggable = true
     MainFrame.ClipsDescendants = true
@@ -260,6 +260,14 @@ function NixoUI:CreateWindow(config)
     local MainCorner = Instance.new("UICorner")
     MainCorner.CornerRadius = UDim.new(0, 10)
     MainCorner.Parent = MainFrame
+    
+    -- Animate window appearance
+    task.spawn(function()
+        task.wait(0.2)
+        TweenService:Create(MainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 900, 0, 600)
+        }):Play()
+    end)
 
     
     -- Title Bar
