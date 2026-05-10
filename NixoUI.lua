@@ -695,17 +695,14 @@ function NixoUI:CreateWindow(config)
         Tab.TextLabel = TextLabel
         table.insert(Window.Tabs, Tab)
         
-        -- Auto-select first tab
+        -- Auto-select first tab immediately
         if #Window.Tabs == 1 then
-            task.spawn(function()
-                task.wait(0.1) -- Wait for UI to fully load
-                TabButton.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
-                TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TabContent.Visible = true
-                Window.CurrentTab = Tab
-                print("✅ [NixoUI] First tab auto-selected:", Tab.Name)
-            end)
+            TabButton.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
+            TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TabContent.Visible = true
+            Window.CurrentTab = Tab
+            print("✅ [NixoUI] First tab selected:", Tab.Name, "Visible:", TabContent.Visible)
         end
 
         
