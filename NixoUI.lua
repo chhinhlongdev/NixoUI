@@ -695,14 +695,28 @@ function NixoUI:CreateWindow(config)
         Tab.TextLabel = TextLabel
         table.insert(Window.Tabs, Tab)
         
-        -- Auto-select first tab immediately
+        -- Auto-select first tab by simulating click
         if #Window.Tabs == 1 then
-            TabButton.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
-            TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-            IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TabContent.Visible = true
-            Window.CurrentTab = Tab
-            print("✅ [NixoUI] First tab selected:", Tab.Name, "Visible:", TabContent.Visible)
+            task.spawn(function()
+                task.wait(0.05) -- Small delay to ensure UI is ready
+                -- Simulate clicking the first tab
+                for _, tab in pairs(Window.Tabs) do
+                    tab.Content.Visible = false
+                    tab.Button.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+                    tab.Button:FindFirstChild("TextLabel").TextColor3 = Color3.fromRGB(180, 180, 180)
+                    tab.Button:FindFirstChild("IconLabel").TextColor3 = Color3.fromRGB(100, 150, 255)
+                end
+                
+                TabContent.Visible = true
+                TweenService:Create(TabButton, TweenInfo.new(0.2), {
+                    BackgroundColor3 = Color3.fromRGB(45, 120, 255)
+                }):Play()
+                TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Window.CurrentTab = Tab
+                
+                print("✅ [NixoUI] First tab auto-selected:", Tab.Name)
+            end)
         end
 
         
