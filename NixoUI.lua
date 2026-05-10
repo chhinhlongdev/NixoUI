@@ -160,6 +160,91 @@ function NixoUI:CreateWindow(config)
     task.wait(0.5)
     LoadingFrame:Destroy()
     
+    -- Welcome Notification
+    local WelcomeNotification = Instance.new("Frame")
+    WelcomeNotification.Name = "WelcomeNotification"
+    WelcomeNotification.Parent = ScreenGui
+    WelcomeNotification.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
+    WelcomeNotification.BorderSizePixel = 0
+    WelcomeNotification.Position = UDim2.new(1, 20, 0, 20)
+    WelcomeNotification.Size = UDim2.new(0, 350, 0, 100)
+    WelcomeNotification.AnchorPoint = Vector2.new(1, 0)
+    
+    local NotifCorner = Instance.new("UICorner")
+    NotifCorner.CornerRadius = UDim.new(0, 10)
+    NotifCorner.Parent = WelcomeNotification
+    
+    local NotifStroke = Instance.new("UIStroke")
+    NotifStroke.Color = Color3.fromRGB(65, 140, 255)
+    NotifStroke.Thickness = 2
+    NotifStroke.Parent = WelcomeNotification
+    
+    local NotifIcon = Instance.new("TextLabel")
+    NotifIcon.Parent = WelcomeNotification
+    NotifIcon.BackgroundTransparency = 1
+    NotifIcon.Position = UDim2.new(0, 15, 0, 15)
+    NotifIcon.Size = UDim2.new(0, 40, 0, 40)
+    NotifIcon.Font = Enum.Font.GothamBold
+    NotifIcon.Text = "👋"
+    NotifIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+    NotifIcon.TextSize = 32
+    
+    local NotifTitle = Instance.new("TextLabel")
+    NotifTitle.Parent = WelcomeNotification
+    NotifTitle.BackgroundTransparency = 1
+    NotifTitle.Position = UDim2.new(0, 65, 0, 15)
+    NotifTitle.Size = UDim2.new(1, -80, 0, 25)
+    NotifTitle.Font = Enum.Font.GothamBold
+    NotifTitle.Text = "Welcome to " .. Window.Name
+    NotifTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    NotifTitle.TextSize = 16
+    NotifTitle.TextXAlignment = Enum.TextXAlignment.Left
+    
+    local NotifMessage = Instance.new("TextLabel")
+    NotifMessage.Parent = WelcomeNotification
+    NotifMessage.BackgroundTransparency = 1
+    NotifMessage.Position = UDim2.new(0, 65, 0, 42)
+    NotifMessage.Size = UDim2.new(1, -80, 0, 45)
+    NotifMessage.Font = Enum.Font.Gotham
+    NotifMessage.Text = "Script loaded successfully!\nEnjoy using the features."
+    NotifMessage.TextColor3 = Color3.fromRGB(220, 220, 220)
+    NotifMessage.TextSize = 13
+    NotifMessage.TextXAlignment = Enum.TextXAlignment.Left
+    NotifMessage.TextYAlignment = Enum.TextYAlignment.Top
+    NotifMessage.TextWrapped = true
+    
+    local NotifProgress = Instance.new("Frame")
+    NotifProgress.Parent = WelcomeNotification
+    NotifProgress.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    NotifProgress.BackgroundTransparency = 0.7
+    NotifProgress.BorderSizePixel = 0
+    NotifProgress.Position = UDim2.new(0, 0, 1, -3)
+    NotifProgress.Size = UDim2.new(1, 0, 0, 3)
+    
+    -- Slide in animation
+    WelcomeNotification.Position = UDim2.new(1, 20, 0, 20)
+    TweenService:Create(WelcomeNotification, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+        Position = UDim2.new(1, -20, 0, 20)
+    }):Play()
+    
+    -- Progress bar animation
+    task.spawn(function()
+        task.wait(0.5)
+        TweenService:Create(NotifProgress, TweenInfo.new(4, Enum.EasingStyle.Linear), {
+            Size = UDim2.new(0, 0, 0, 3)
+        }):Play()
+    end)
+    
+    -- Auto dismiss after 4.5 seconds
+    task.spawn(function()
+        task.wait(4.5)
+        TweenService:Create(WelcomeNotification, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+            Position = UDim2.new(1, 20, 0, 20)
+        }):Play()
+        task.wait(0.3)
+        WelcomeNotification:Destroy()
+    end)
+    
     -- Main Window
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
