@@ -164,16 +164,16 @@ function NixoUI:CreateWindow(config)
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
     MainFrame.BorderSizePixel = 0
-    MainFrame.Position = UDim2.new(0.5, -350, 0.5, -250)
-    MainFrame.Size = UDim2.new(0, 700, 0, 500)
+    MainFrame.Position = UDim2.new(0.5, -450, 0.5, -300)
+    MainFrame.Size = UDim2.new(0, 900, 0, 600)
     MainFrame.Active = true
     MainFrame.Draggable = true
     MainFrame.ClipsDescendants = true
     
     local MainCorner = Instance.new("UICorner")
-    MainCorner.CornerRadius = UDim.new(0, 12)
+    MainCorner.CornerRadius = UDim.new(0, 10)
     MainCorner.Parent = MainFrame
 
     
@@ -181,56 +181,128 @@ function NixoUI:CreateWindow(config)
     local TitleBar = Instance.new("Frame")
     TitleBar.Name = "TitleBar"
     TitleBar.Parent = MainFrame
-    TitleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+    TitleBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     TitleBar.BorderSizePixel = 0
-    TitleBar.Size = UDim2.new(1, 0, 0, 50)
+    TitleBar.Size = UDim2.new(1, 0, 0, 60)
     
     local TitleCorner = Instance.new("UICorner")
-    TitleCorner.CornerRadius = UDim.new(0, 12)
+    TitleCorner.CornerRadius = UDim.new(0, 10)
     TitleCorner.Parent = TitleBar
     
+    -- Title Container
+    local TitleContainer = Instance.new("Frame")
+    TitleContainer.Parent = TitleBar
+    TitleContainer.BackgroundTransparency = 1
+    TitleContainer.Position = UDim2.new(0, 260, 0, 0)
+    TitleContainer.Size = UDim2.new(1, -380, 1, 0)
+    
     local Title = Instance.new("TextLabel")
-    Title.Parent = TitleBar
+    Title.Parent = TitleContainer
     Title.BackgroundTransparency = 1
-    Title.Position = UDim2.new(0, 15, 0, 0)
-    Title.Size = UDim2.new(1, -120, 1, 0)
+    Title.Position = UDim2.new(0, 0, 0, 8)
+    Title.Size = UDim2.new(1, 0, 0, 22)
     Title.Font = Enum.Font.GothamBold
     Title.Text = Window.Name
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextSize = 18
+    Title.TextSize = 16
     Title.TextXAlignment = Enum.TextXAlignment.Left
     
-    -- Minimize Button
-    local MinimizeBtn = Instance.new("TextButton")
-    MinimizeBtn.Parent = TitleBar
-    MinimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 50)
-    MinimizeBtn.Position = UDim2.new(1, -90, 0.5, -15)
-    MinimizeBtn.Size = UDim2.new(0, 35, 0, 30)
-    MinimizeBtn.Font = Enum.Font.GothamBold
-    MinimizeBtn.Text = "—"
-    MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    MinimizeBtn.TextSize = 16
-    MinimizeBtn.AutoButtonColor = false
+    local Subtitle = Instance.new("TextLabel")
+    Subtitle.Parent = TitleContainer
+    Subtitle.BackgroundTransparency = 1
+    Subtitle.Position = UDim2.new(0, 0, 0, 32)
+    Subtitle.Size = UDim2.new(1, 0, 0, 18)
+    Subtitle.Font = Enum.Font.Gotham
+    Subtitle.Text = "Made by vitasit"
+    Subtitle.TextColor3 = Color3.fromRGB(150, 150, 150)
+    Subtitle.TextSize = 12
+    Subtitle.TextXAlignment = Enum.TextXAlignment.Left
     
-    local MinCorner = Instance.new("UICorner")
-    MinCorner.CornerRadius = UDim.new(0, 8)
-    MinCorner.Parent = MinimizeBtn
+    -- Window Control Buttons (macOS style)
+    local ControlsFrame = Instance.new("Frame")
+    ControlsFrame.Parent = TitleBar
+    ControlsFrame.BackgroundTransparency = 1
+    ControlsFrame.Position = UDim2.new(0, 20, 0, 20)
+    ControlsFrame.Size = UDim2.new(0, 60, 0, 20)
     
-    -- Close Button
     local CloseBtn = Instance.new("TextButton")
-    CloseBtn.Parent = TitleBar
-    CloseBtn.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
-    CloseBtn.Position = UDim2.new(1, -50, 0.5, -15)
-    CloseBtn.Size = UDim2.new(0, 35, 0, 30)
+    CloseBtn.Parent = ControlsFrame
+    CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 95, 87)
+    CloseBtn.Position = UDim2.new(0, 0, 0, 0)
+    CloseBtn.Size = UDim2.new(0, 12, 0, 12)
     CloseBtn.Font = Enum.Font.GothamBold
-    CloseBtn.Text = "×"
+    CloseBtn.Text = ""
     CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    CloseBtn.TextSize = 20
+    CloseBtn.TextSize = 10
     CloseBtn.AutoButtonColor = false
     
     local CloseCorner = Instance.new("UICorner")
-    CloseCorner.CornerRadius = UDim.new(0, 8)
+    CloseCorner.CornerRadius = UDim.new(1, 0)
     CloseCorner.Parent = CloseBtn
+    
+    local MinimizeBtn = Instance.new("TextButton")
+    MinimizeBtn.Parent = ControlsFrame
+    MinimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 189, 46)
+    MinimizeBtn.Position = UDim2.new(0, 24, 0, 0)
+    MinimizeBtn.Size = UDim2.new(0, 12, 0, 12)
+    MinimizeBtn.Font = Enum.Font.GothamBold
+    MinimizeBtn.Text = ""
+    MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MinimizeBtn.TextSize = 10
+    MinimizeBtn.AutoButtonColor = false
+    
+    local MinCorner = Instance.new("UICorner")
+    MinCorner.CornerRadius = UDim.new(1, 0)
+    MinCorner.Parent = MinimizeBtn
+    
+    local MaximizeBtn = Instance.new("TextButton")
+    MaximizeBtn.Parent = ControlsFrame
+    MaximizeBtn.BackgroundColor3 = Color3.fromRGB(40, 201, 64)
+    MaximizeBtn.Position = UDim2.new(0, 48, 0, 0)
+    MaximizeBtn.Size = UDim2.new(0, 12, 0, 12)
+    MaximizeBtn.Font = Enum.Font.GothamBold
+    MaximizeBtn.Text = ""
+    MaximizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MaximizeBtn.TextSize = 10
+    MaximizeBtn.AutoButtonColor = false
+    
+    local MaxCorner = Instance.new("UICorner")
+    MaxCorner.CornerRadius = UDim.new(1, 0)
+    MaxCorner.Parent = MaximizeBtn
+    
+    -- Search Bar
+    local SearchFrame = Instance.new("Frame")
+    SearchFrame.Parent = TitleBar
+    SearchFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    SearchFrame.Position = UDim2.new(1, -280, 0.5, -15)
+    SearchFrame.Size = UDim2.new(0, 250, 0, 30)
+    
+    local SearchCorner = Instance.new("UICorner")
+    SearchCorner.CornerRadius = UDim.new(0, 6)
+    SearchCorner.Parent = SearchFrame
+    
+    local SearchIcon = Instance.new("TextLabel")
+    SearchIcon.Parent = SearchFrame
+    SearchIcon.BackgroundTransparency = 1
+    SearchIcon.Position = UDim2.new(0, 10, 0, 0)
+    SearchIcon.Size = UDim2.new(0, 30, 1, 0)
+    SearchIcon.Font = Enum.Font.GothamBold
+    SearchIcon.Text = "🔍"
+    SearchIcon.TextColor3 = Color3.fromRGB(150, 150, 150)
+    SearchIcon.TextSize = 14
+    
+    local SearchBox = Instance.new("TextBox")
+    SearchBox.Parent = SearchFrame
+    SearchBox.BackgroundTransparency = 1
+    SearchBox.Position = UDim2.new(0, 40, 0, 0)
+    SearchBox.Size = UDim2.new(1, -50, 1, 0)
+    SearchBox.Font = Enum.Font.Gotham
+    SearchBox.PlaceholderText = "Search"
+    SearchBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
+    SearchBox.Text = ""
+    SearchBox.TextColor3 = Color3.fromRGB(200, 200, 200)
+    SearchBox.TextSize = 13
+    SearchBox.TextXAlignment = Enum.TextXAlignment.Left
 
     
     -- Minimized Icon
@@ -263,65 +335,60 @@ function NixoUI:CreateWindow(config)
         }):Play()
     end)
     
-    -- Tab Container
-    local TabContainer = Instance.new("Frame")
-    TabContainer.Name = "TabContainer"
-    TabContainer.Parent = MainFrame
-    TabContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-    TabContainer.BorderSizePixel = 0
-    TabContainer.Position = UDim2.new(0, 10, 0, 60)
-    TabContainer.Size = UDim2.new(0, 160, 1, -70)
+    -- Sidebar Navigation
+    local Sidebar = Instance.new("Frame")
+    Sidebar.Name = "Sidebar"
+    Sidebar.Parent = MainFrame
+    Sidebar.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+    Sidebar.BorderSizePixel = 0
+    Sidebar.Position = UDim2.new(0, 0, 0, 60)
+    Sidebar.Size = UDim2.new(0, 240, 1, -60)
     
-    local TabCorner = Instance.new("UICorner")
-    TabCorner.CornerRadius = UDim.new(0, 10)
-    TabCorner.Parent = TabContainer
+    local SidebarCorner = Instance.new("UICorner")
+    SidebarCorner.CornerRadius = UDim.new(0, 0)
+    SidebarCorner.Parent = Sidebar
     
-    local TabScroll = Instance.new("ScrollingFrame")
-    TabScroll.Parent = TabContainer
-    TabScroll.BackgroundTransparency = 1
-    TabScroll.Size = UDim2.new(1, 0, 1, 0)
-    TabScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabScroll.ScrollBarThickness = 4
-    TabScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    local SidebarScroll = Instance.new("ScrollingFrame")
+    SidebarScroll.Parent = Sidebar
+    SidebarScroll.BackgroundTransparency = 1
+    SidebarScroll.BorderSizePixel = 0
+    SidebarScroll.Size = UDim2.new(1, 0, 1, 0)
+    SidebarScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    SidebarScroll.ScrollBarThickness = 4
+    SidebarScroll.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
+    SidebarScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
     
-    local TabLayout = Instance.new("UIListLayout")
-    TabLayout.Parent = TabScroll
-    TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    TabLayout.Padding = UDim.new(0, 8)
-    TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    local SidebarLayout = Instance.new("UIListLayout")
+    SidebarLayout.Parent = SidebarScroll
+    SidebarLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    SidebarLayout.Padding = UDim.new(0, 2)
     
-    local TabPadding = Instance.new("UIPadding")
-    TabPadding.Parent = TabScroll
-    TabPadding.PaddingTop = UDim.new(0, 8)
-    TabPadding.PaddingBottom = UDim.new(0, 8)
+    local SidebarPadding = Instance.new("UIPadding")
+    SidebarPadding.Parent = SidebarScroll
+    SidebarPadding.PaddingTop = UDim.new(0, 10)
+    SidebarPadding.PaddingBottom = UDim.new(0, 10)
+    SidebarPadding.PaddingLeft = UDim.new(0, 10)
+    SidebarPadding.PaddingRight = UDim.new(0, 10)
     
     -- Content Container
     local ContentContainer = Instance.new("Frame")
     ContentContainer.Name = "ContentContainer"
     ContentContainer.Parent = MainFrame
     ContentContainer.BackgroundTransparency = 1
-    ContentContainer.Position = UDim2.new(0, 180, 0, 60)
-    ContentContainer.Size = UDim2.new(1, -190, 1, -70)
+    ContentContainer.Position = UDim2.new(0, 240, 0, 60)
+    ContentContainer.Size = UDim2.new(1, -240, 1, -60)
 
     
     -- Button Interactions
     MinimizeBtn.MouseButton1Click:Connect(function()
-        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
-            Size = UDim2.new(0, 0, 0, 0)
-        }):Play()
-        task.wait(0.3)
-        MainFrame.Visible = false
-        MinimizedIcon.Visible = true
-        TweenService:Create(MinimizedIcon, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 50, 0, 50)
+        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 900, 0, 60)
         }):Play()
     end)
     
-    MinimizedIcon.MouseButton1Click:Connect(function()
-        MinimizedIcon.Visible = false
-        MainFrame.Visible = true
-        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 700, 0, 500)
+    MaximizeBtn.MouseButton1Click:Connect(function()
+        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 900, 0, 600)
         }):Play()
     end)
     
@@ -334,18 +401,25 @@ function NixoUI:CreateWindow(config)
     end)
     
     -- Hover Effects
-    MinimizeBtn.MouseEnter:Connect(function()
-        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 220, 100)}):Play()
-    end)
-    MinimizeBtn.MouseLeave:Connect(function()
-        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 200, 50)}):Play()
-    end)
-    
     CloseBtn.MouseEnter:Connect(function()
-        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 70, 70)}):Play()
+        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 115, 107)}):Play()
     end)
     CloseBtn.MouseLeave:Connect(function()
-        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(220, 50, 50)}):Play()
+        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 95, 87)}):Play()
+    end)
+    
+    MinimizeBtn.MouseEnter:Connect(function()
+        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 209, 66)}):Play()
+    end)
+    MinimizeBtn.MouseLeave:Connect(function()
+        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 189, 46)}):Play()
+    end)
+    
+    MaximizeBtn.MouseEnter:Connect(function()
+        TweenService:Create(MaximizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 221, 84)}):Play()
+    end)
+    MaximizeBtn.MouseLeave:Connect(function()
+        TweenService:Create(MaximizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 201, 64)}):Play()
     end)
     
     -- Create Tab Function
@@ -358,18 +432,40 @@ function NixoUI:CreateWindow(config)
         
         local TabButton = Instance.new("TextButton")
         TabButton.Name = Tab.Name
-        TabButton.Parent = TabScroll
-        TabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-        TabButton.Size = UDim2.new(1, -10, 0, 40)
+        TabButton.Parent = SidebarScroll
+        TabButton.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        TabButton.Size = UDim2.new(1, 0, 0, 42)
         TabButton.Font = Enum.Font.Gotham
-        TabButton.Text = Tab.Icon .. "  " .. Tab.Name
-        TabButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+        TabButton.Text = ""
+        TabButton.TextColor3 = Color3.fromRGB(180, 180, 180)
         TabButton.TextSize = 14
         TabButton.AutoButtonColor = false
         
         local TabBtnCorner = Instance.new("UICorner")
-        TabBtnCorner.CornerRadius = UDim.new(0, 8)
+        TabBtnCorner.CornerRadius = UDim.new(0, 6)
         TabBtnCorner.Parent = TabButton
+        
+        local IconLabel = Instance.new("TextLabel")
+        IconLabel.Parent = TabButton
+        IconLabel.BackgroundTransparency = 1
+        IconLabel.Position = UDim2.new(0, 12, 0, 0)
+        IconLabel.Size = UDim2.new(0, 30, 1, 0)
+        IconLabel.Font = Enum.Font.GothamBold
+        IconLabel.Text = Tab.Icon
+        IconLabel.TextColor3 = Color3.fromRGB(100, 150, 255)
+        IconLabel.TextSize = 16
+        IconLabel.TextXAlignment = Enum.TextXAlignment.Left
+        
+        local TextLabel = Instance.new("TextLabel")
+        TextLabel.Parent = TabButton
+        TextLabel.BackgroundTransparency = 1
+        TextLabel.Position = UDim2.new(0, 45, 0, 0)
+        TextLabel.Size = UDim2.new(1, -50, 1, 0)
+        TextLabel.Font = Enum.Font.Gotham
+        TextLabel.Text = Tab.Name
+        TextLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+        TextLabel.TextSize = 14
+        TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
         
         local TabContent = Instance.new("ScrollingFrame")
@@ -379,42 +475,45 @@ function NixoUI:CreateWindow(config)
         TabContent.Size = UDim2.new(1, 0, 1, 0)
         TabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
         TabContent.ScrollBarThickness = 6
-        TabContent.ScrollBarImageColor3 = Color3.fromRGB(100, 100, 120)
+        TabContent.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
         TabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
         TabContent.Visible = false
+        TabContent.BorderSizePixel = 0
         
         local ContentLayout = Instance.new("UIListLayout")
         ContentLayout.Parent = TabContent
         ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        ContentLayout.Padding = UDim.new(0, 10)
+        ContentLayout.Padding = UDim.new(0, 12)
         
         local ContentPadding = Instance.new("UIPadding")
         ContentPadding.Parent = TabContent
-        ContentPadding.PaddingLeft = UDim.new(0, 8)
-        ContentPadding.PaddingRight = UDim.new(0, 8)
-        ContentPadding.PaddingTop = UDim.new(0, 8)
-        ContentPadding.PaddingBottom = UDim.new(0, 8)
+        ContentPadding.PaddingLeft = UDim.new(0, 20)
+        ContentPadding.PaddingRight = UDim.new(0, 20)
+        ContentPadding.PaddingTop = UDim.new(0, 20)
+        ContentPadding.PaddingBottom = UDim.new(0, 20)
         
         TabButton.MouseButton1Click:Connect(function()
             for _, tab in pairs(Window.Tabs) do
                 tab.Content.Visible = false
                 TweenService:Create(tab.Button, TweenInfo.new(0.2), {
-                    BackgroundColor3 = Color3.fromRGB(30, 30, 45),
-                    TextColor3 = Color3.fromRGB(200, 200, 200)
+                    BackgroundColor3 = Color3.fromRGB(28, 28, 28)
                 }):Play()
+                tab.Button:FindFirstChild("TextLabel").TextColor3 = Color3.fromRGB(180, 180, 180)
+                tab.Button:FindFirstChild("IconLabel").TextColor3 = Color3.fromRGB(100, 150, 255)
             end
             TabContent.Visible = true
             TweenService:Create(TabButton, TweenInfo.new(0.2), {
-                BackgroundColor3 = Color3.fromRGB(100, 150, 255),
-                TextColor3 = Color3.fromRGB(255, 255, 255)
+                BackgroundColor3 = Color3.fromRGB(45, 120, 255)
             }):Play()
+            TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
             Window.CurrentTab = Tab
         end)
         
         TabButton.MouseEnter:Connect(function()
             if TabContent.Visible == false then
                 TweenService:Create(TabButton, TweenInfo.new(0.15), {
-                    BackgroundColor3 = Color3.fromRGB(40, 40, 55)
+                    BackgroundColor3 = Color3.fromRGB(38, 38, 38)
                 }):Play()
             end
         end)
@@ -422,18 +521,21 @@ function NixoUI:CreateWindow(config)
         TabButton.MouseLeave:Connect(function()
             if TabContent.Visible == false then
                 TweenService:Create(TabButton, TweenInfo.new(0.15), {
-                    BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+                    BackgroundColor3 = Color3.fromRGB(28, 28, 28)
                 }):Play()
             end
         end)
         
         Tab.Button = TabButton
         Tab.Content = TabContent
+        Tab.IconLabel = IconLabel
+        Tab.TextLabel = TextLabel
         table.insert(Window.Tabs, Tab)
         
         if #Window.Tabs == 1 then
-            TabButton.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TabButton.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
+            TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
             TabContent.Visible = true
             Window.CurrentTab = Tab
         end
@@ -443,29 +545,40 @@ function NixoUI:CreateWindow(config)
         function Tab:CreateToggle(config)
             local Toggle = Instance.new("Frame")
             Toggle.Parent = TabContent
-            Toggle.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-            Toggle.Size = UDim2.new(1, 0, 0, 40)
+            Toggle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            Toggle.Size = UDim2.new(1, 0, 0, 55)
             
             local ToggleCorner = Instance.new("UICorner")
             ToggleCorner.CornerRadius = UDim.new(0, 8)
             ToggleCorner.Parent = Toggle
             
-            local Label = Instance.new("TextLabel")
-            Label.Parent = Toggle
-            Label.BackgroundTransparency = 1
-            Label.Position = UDim2.new(0, 12, 0, 0)
-            Label.Size = UDim2.new(1, -60, 1, 0)
-            Label.Font = Enum.Font.Gotham
-            Label.Text = config.Name or "Toggle"
-            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Label.TextSize = 14
-            Label.TextXAlignment = Enum.TextXAlignment.Left
+            local TitleLabel = Instance.new("TextLabel")
+            TitleLabel.Parent = Toggle
+            TitleLabel.BackgroundTransparency = 1
+            TitleLabel.Position = UDim2.new(0, 15, 0, 8)
+            TitleLabel.Size = UDim2.new(1, -80, 0, 18)
+            TitleLabel.Font = Enum.Font.GothamMedium
+            TitleLabel.Text = config.Name or "Toggle"
+            TitleLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+            TitleLabel.TextSize = 14
+            TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+            
+            local DescLabel = Instance.new("TextLabel")
+            DescLabel.Parent = Toggle
+            DescLabel.BackgroundTransparency = 1
+            DescLabel.Position = UDim2.new(0, 15, 0, 28)
+            DescLabel.Size = UDim2.new(1, -80, 0, 16)
+            DescLabel.Font = Enum.Font.Gotham
+            DescLabel.Text = config.Description or ""
+            DescLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+            DescLabel.TextSize = 11
+            DescLabel.TextXAlignment = Enum.TextXAlignment.Left
             
             local ToggleBtn = Instance.new("TextButton")
             ToggleBtn.Parent = Toggle
-            ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-            ToggleBtn.Position = UDim2.new(1, -45, 0.5, -12)
-            ToggleBtn.Size = UDim2.new(0, 40, 0, 24)
+            ToggleBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+            ToggleBtn.Position = UDim2.new(1, -55, 0.5, -12)
+            ToggleBtn.Size = UDim2.new(0, 45, 0, 24)
             ToggleBtn.Text = ""
             ToggleBtn.AutoButtonColor = false
             
@@ -475,9 +588,9 @@ function NixoUI:CreateWindow(config)
             
             local Indicator = Instance.new("Frame")
             Indicator.Parent = ToggleBtn
-            Indicator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Indicator.Position = UDim2.new(0, 2, 0.5, -10)
-            Indicator.Size = UDim2.new(0, 20, 0, 20)
+            Indicator.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+            Indicator.Position = UDim2.new(0, 3, 0.5, -9)
+            Indicator.Size = UDim2.new(0, 18, 0, 18)
             
             local IndCorner = Instance.new("UICorner")
             IndCorner.CornerRadius = UDim.new(1, 0)
@@ -485,17 +598,17 @@ function NixoUI:CreateWindow(config)
             
             local state = config.Default or false
             if state then
-                ToggleBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-                Indicator.Position = UDim2.new(1, -22, 0.5, -10)
+                ToggleBtn.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
+                Indicator.Position = UDim2.new(1, -21, 0.5, -9)
             end
             
             ToggleBtn.MouseButton1Click:Connect(function()
                 state = not state
-                TweenService:Create(ToggleBtn, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
-                    BackgroundColor3 = state and Color3.fromRGB(50, 200, 50) or Color3.fromRGB(200, 50, 50)
+                TweenService:Create(ToggleBtn, TweenInfo.new(0.25, Enum.EasingStyle.Quad), {
+                    BackgroundColor3 = state and Color3.fromRGB(45, 120, 255) or Color3.fromRGB(60, 60, 60)
                 }):Play()
-                TweenService:Create(Indicator, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
-                    Position = state and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
+                TweenService:Create(Indicator, TweenInfo.new(0.25, Enum.EasingStyle.Quad), {
+                    Position = state and UDim2.new(1, -21, 0.5, -9) or UDim2.new(0, 3, 0.5, -9)
                 }):Play()
                 if config.Callback then
                     config.Callback(state)
@@ -510,8 +623,8 @@ function NixoUI:CreateWindow(config)
         function Tab:CreateButton(config)
             local Button = Instance.new("TextButton")
             Button.Parent = TabContent
-            Button.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-            Button.Size = UDim2.new(1, 0, 0, 40)
+            Button.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
+            Button.Size = UDim2.new(1, 0, 0, 45)
             Button.Font = Enum.Font.GothamBold
             Button.Text = config.Name or "Button"
             Button.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -523,20 +636,20 @@ function NixoUI:CreateWindow(config)
             BtnCorner.Parent = Button
             
             Button.MouseButton1Click:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.1), {Size = UDim2.new(1, 0, 0, 37)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.1), {Size = UDim2.new(1, 0, 0, 42)}):Play()
                 task.wait(0.1)
-                TweenService:Create(Button, TweenInfo.new(0.1), {Size = UDim2.new(1, 0, 0, 40)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.1), {Size = UDim2.new(1, 0, 0, 45)}):Play()
                 if config.Callback then
                     config.Callback()
                 end
             end)
             
             Button.MouseEnter:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(120, 170, 255)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(65, 140, 255)}):Play()
             end)
             
             Button.MouseLeave:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(100, 150, 255)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 120, 255)}):Play()
             end)
             
             return Button
@@ -546,40 +659,52 @@ function NixoUI:CreateWindow(config)
         function Tab:CreateSlider(config)
             local Slider = Instance.new("Frame")
             Slider.Parent = TabContent
-            Slider.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-            Slider.Size = UDim2.new(1, 0, 0, 60)
+            Slider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            Slider.Size = UDim2.new(1, 0, 0, 70)
             
             local SliderCorner = Instance.new("UICorner")
             SliderCorner.CornerRadius = UDim.new(0, 8)
             SliderCorner.Parent = Slider
             
-            local Label = Instance.new("TextLabel")
-            Label.Parent = Slider
-            Label.BackgroundTransparency = 1
-            Label.Position = UDim2.new(0, 12, 0, 8)
-            Label.Size = UDim2.new(1, -70, 0, 20)
-            Label.Font = Enum.Font.Gotham
-            Label.Text = config.Name or "Slider"
-            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Label.TextSize = 14
-            Label.TextXAlignment = Enum.TextXAlignment.Left
+            local TitleLabel = Instance.new("TextLabel")
+            TitleLabel.Parent = Slider
+            TitleLabel.BackgroundTransparency = 1
+            TitleLabel.Position = UDim2.new(0, 15, 0, 8)
+            TitleLabel.Size = UDim2.new(1, -80, 0, 18)
+            TitleLabel.Font = Enum.Font.GothamMedium
+            TitleLabel.Text = config.Name or "Slider"
+            TitleLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+            TitleLabel.TextSize = 14
+            TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+            
+            local DescLabel = Instance.new("TextLabel")
+            DescLabel.Parent = Slider
+            DescLabel.BackgroundTransparency = 1
+            DescLabel.Position = UDim2.new(0, 15, 0, 28)
+            DescLabel.Size = UDim2.new(1, -80, 0, 16)
+            DescLabel.Font = Enum.Font.Gotham
+            DescLabel.Text = config.Description or ""
+            DescLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+            DescLabel.TextSize = 11
+            DescLabel.TextXAlignment = Enum.TextXAlignment.Left
             
             local ValueLabel = Instance.new("TextLabel")
             ValueLabel.Parent = Slider
             ValueLabel.BackgroundTransparency = 1
-            ValueLabel.Position = UDim2.new(1, -60, 0, 8)
-            ValueLabel.Size = UDim2.new(0, 50, 0, 20)
+            ValueLabel.Position = UDim2.new(1, -70, 0, 8)
+            ValueLabel.Size = UDim2.new(0, 60, 0, 18)
             ValueLabel.Font = Enum.Font.GothamBold
             ValueLabel.Text = tostring(config.Default or 0)
-            ValueLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+            ValueLabel.TextColor3 = Color3.fromRGB(45, 120, 255)
             ValueLabel.TextSize = 14
+            ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
 
             
             local SliderBar = Instance.new("Frame")
             SliderBar.Parent = Slider
-            SliderBar.BackgroundColor3 = Color3.fromRGB(40, 40, 55)
-            SliderBar.Position = UDim2.new(0, 12, 0, 38)
-            SliderBar.Size = UDim2.new(1, -24, 0, 10)
+            SliderBar.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+            SliderBar.Position = UDim2.new(0, 15, 1, -18)
+            SliderBar.Size = UDim2.new(1, -30, 0, 6)
             
             local BarCorner = Instance.new("UICorner")
             BarCorner.CornerRadius = UDim.new(1, 0)
@@ -587,7 +712,7 @@ function NixoUI:CreateWindow(config)
             
             local Fill = Instance.new("Frame")
             Fill.Parent = SliderBar
-            Fill.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+            Fill.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
             local percent = ((config.Default or 0) - (config.Min or 0)) / ((config.Max or 100) - (config.Min or 0))
             Fill.Size = UDim2.new(percent, 0, 1, 0)
             
@@ -598,8 +723,8 @@ function NixoUI:CreateWindow(config)
             local SliderBtn = Instance.new("TextButton")
             SliderBtn.Parent = SliderBar
             SliderBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            SliderBtn.Position = UDim2.new(percent, -6, 0.5, -6)
-            SliderBtn.Size = UDim2.new(0, 12, 0, 12)
+            SliderBtn.Position = UDim2.new(percent, -8, 0.5, -8)
+            SliderBtn.Size = UDim2.new(0, 16, 0, 16)
             SliderBtn.Text = ""
             SliderBtn.AutoButtonColor = false
             
@@ -627,7 +752,7 @@ function NixoUI:CreateWindow(config)
                     
                     ValueLabel.Text = tostring(value)
                     TweenService:Create(Fill, TweenInfo.new(0.1), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
-                    TweenService:Create(SliderBtn, TweenInfo.new(0.1), {Position = UDim2.new(percent, -6, 0.5, -6)}):Play()
+                    TweenService:Create(SliderBtn, TweenInfo.new(0.1), {Position = UDim2.new(percent, -8, 0.5, -8)}):Play()
                     
                     if config.Callback then
                         config.Callback(value)
@@ -643,38 +768,59 @@ function NixoUI:CreateWindow(config)
         function Tab:CreateDropdown(config)
             local Dropdown = Instance.new("Frame")
             Dropdown.Parent = TabContent
-            Dropdown.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-            Dropdown.Size = UDim2.new(1, 0, 0, 40)
+            Dropdown.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            Dropdown.Size = UDim2.new(1, 0, 0, 55)
             
             local DropCorner = Instance.new("UICorner")
             DropCorner.CornerRadius = UDim.new(0, 8)
             DropCorner.Parent = Dropdown
             
-            local Label = Instance.new("TextLabel")
-            Label.Parent = Dropdown
-            Label.BackgroundTransparency = 1
-            Label.Position = UDim2.new(0, 12, 0, 0)
-            Label.Size = UDim2.new(0.4, 0, 1, 0)
-            Label.Font = Enum.Font.Gotham
-            Label.Text = config.Name or "Dropdown"
-            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Label.TextSize = 14
-            Label.TextXAlignment = Enum.TextXAlignment.Left
+            local TitleLabel = Instance.new("TextLabel")
+            TitleLabel.Parent = Dropdown
+            TitleLabel.BackgroundTransparency = 1
+            TitleLabel.Position = UDim2.new(0, 15, 0, 8)
+            TitleLabel.Size = UDim2.new(0.4, 0, 0, 18)
+            TitleLabel.Font = Enum.Font.GothamMedium
+            TitleLabel.Text = config.Name or "Dropdown"
+            TitleLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+            TitleLabel.TextSize = 14
+            TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+            
+            local DescLabel = Instance.new("TextLabel")
+            DescLabel.Parent = Dropdown
+            DescLabel.BackgroundTransparency = 1
+            DescLabel.Position = UDim2.new(0, 15, 0, 28)
+            DescLabel.Size = UDim2.new(0.4, 0, 0, 16)
+            DescLabel.Font = Enum.Font.Gotham
+            DescLabel.Text = config.Description or ""
+            DescLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+            DescLabel.TextSize = 11
+            DescLabel.TextXAlignment = Enum.TextXAlignment.Left
             
             local DropBtn = Instance.new("TextButton")
             DropBtn.Parent = Dropdown
-            DropBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 55)
-            DropBtn.Position = UDim2.new(0.4, 5, 0.5, -15)
-            DropBtn.Size = UDim2.new(0.6, -17, 0, 30)
+            DropBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            DropBtn.Position = UDim2.new(0.5, 5, 0.5, -15)
+            DropBtn.Size = UDim2.new(0.5, -20, 0, 32)
             DropBtn.Font = Enum.Font.Gotham
             DropBtn.Text = (config.Options and config.Options[1]) or "Select"
-            DropBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropBtn.TextColor3 = Color3.fromRGB(220, 220, 220)
             DropBtn.TextSize = 13
             DropBtn.AutoButtonColor = false
             
             local BtnCorner = Instance.new("UICorner")
             BtnCorner.CornerRadius = UDim.new(0, 6)
             BtnCorner.Parent = DropBtn
+            
+            local DropIcon = Instance.new("TextLabel")
+            DropIcon.Parent = DropBtn
+            DropIcon.BackgroundTransparency = 1
+            DropIcon.Position = UDim2.new(1, -25, 0, 0)
+            DropIcon.Size = UDim2.new(0, 20, 1, 0)
+            DropIcon.Font = Enum.Font.GothamBold
+            DropIcon.Text = "▼"
+            DropIcon.TextColor3 = Color3.fromRGB(150, 150, 150)
+            DropIcon.TextSize = 10
             
             local currentIndex = 1
             
@@ -686,12 +832,12 @@ function NixoUI:CreateWindow(config)
                     end
                     DropBtn.Text = config.Options[currentIndex]
                     
-                    TweenService:Create(DropBtn, TweenInfo.new(0.2, Enum.EasingStyle.Back), {
-                        BackgroundColor3 = Color3.fromRGB(60, 60, 80)
+                    TweenService:Create(DropBtn, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+                        BackgroundColor3 = Color3.fromRGB(70, 70, 70)
                     }):Play()
                     task.wait(0.1)
                     TweenService:Create(DropBtn, TweenInfo.new(0.2), {
-                        BackgroundColor3 = Color3.fromRGB(40, 40, 55)
+                        BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     }):Play()
                     
                     if config.Callback then
@@ -701,11 +847,11 @@ function NixoUI:CreateWindow(config)
             end)
             
             DropBtn.MouseEnter:Connect(function()
-                TweenService:Create(DropBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(50, 50, 65)}):Play()
+                TweenService:Create(DropBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
             end)
             
             DropBtn.MouseLeave:Connect(function()
-                TweenService:Create(DropBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(40, 40, 55)}):Play()
+                TweenService:Create(DropBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}):Play()
             end)
             
             return Dropdown
@@ -716,12 +862,12 @@ function NixoUI:CreateWindow(config)
         function Tab:CreateLabel(config)
             local Label = Instance.new("TextLabel")
             Label.Parent = TabContent
-            Label.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-            Label.Size = UDim2.new(1, 0, 0, 35)
+            Label.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            Label.Size = UDim2.new(1, 0, 0, 40)
             Label.Font = Enum.Font.Gotham
             Label.Text = config.Text or "Label"
             Label.TextColor3 = Color3.fromRGB(200, 200, 200)
-            Label.TextSize = 14
+            Label.TextSize = 13
             
             local LabelCorner = Instance.new("UICorner")
             LabelCorner.CornerRadius = UDim.new(0, 8)
@@ -734,12 +880,8 @@ function NixoUI:CreateWindow(config)
         function Tab:CreateSection(config)
             local Section = Instance.new("Frame")
             Section.Parent = TabContent
-            Section.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-            Section.Size = UDim2.new(1, 0, 0, 30)
-            
-            local SectionCorner = Instance.new("UICorner")
-            SectionCorner.CornerRadius = UDim.new(0, 8)
-            SectionCorner.Parent = Section
+            Section.BackgroundTransparency = 1
+            Section.Size = UDim2.new(1, 0, 0, 35)
             
             local SectionLabel = Instance.new("TextLabel")
             SectionLabel.Parent = Section
@@ -748,7 +890,8 @@ function NixoUI:CreateWindow(config)
             SectionLabel.Font = Enum.Font.GothamBold
             SectionLabel.Text = config.Name or "Section"
             SectionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SectionLabel.TextSize = 15
+            SectionLabel.TextSize = 16
+            SectionLabel.TextXAlignment = Enum.TextXAlignment.Left
             
             return Section
         end
@@ -758,9 +901,9 @@ function NixoUI:CreateWindow(config)
             local DiscordBtn = Instance.new("TextButton")
             DiscordBtn.Parent = TabContent
             DiscordBtn.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
-            DiscordBtn.Size = UDim2.new(1, 0, 0, 45)
+            DiscordBtn.Size = UDim2.new(1, 0, 0, 50)
             DiscordBtn.Font = Enum.Font.GothamBold
-            DiscordBtn.Text = "🔗 " .. (config.Name or "Join Discord Server")
+            DiscordBtn.Text = ""
             DiscordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
             DiscordBtn.TextSize = 14
             DiscordBtn.AutoButtonColor = false
@@ -769,15 +912,37 @@ function NixoUI:CreateWindow(config)
             BtnCorner.CornerRadius = UDim.new(0, 8)
             BtnCorner.Parent = DiscordBtn
             
+            local IconLabel = Instance.new("TextLabel")
+            IconLabel.Parent = DiscordBtn
+            IconLabel.BackgroundTransparency = 1
+            IconLabel.Position = UDim2.new(0, 15, 0, 0)
+            IconLabel.Size = UDim2.new(0, 30, 1, 0)
+            IconLabel.Font = Enum.Font.GothamBold
+            IconLabel.Text = "🔗"
+            IconLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            IconLabel.TextSize = 18
+            
+            local TitleLabel = Instance.new("TextLabel")
+            TitleLabel.Parent = DiscordBtn
+            TitleLabel.BackgroundTransparency = 1
+            TitleLabel.Position = UDim2.new(0, 50, 0, 8)
+            TitleLabel.Size = UDim2.new(1, -60, 0, 18)
+            TitleLabel.Font = Enum.Font.GothamBold
+            TitleLabel.Text = config.Name or "Join Discord Server"
+            TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TitleLabel.TextSize = 14
+            TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+            
             local SubLabel = Instance.new("TextLabel")
             SubLabel.Parent = DiscordBtn
             SubLabel.BackgroundTransparency = 1
-            SubLabel.Position = UDim2.new(0, 0, 1, -18)
-            SubLabel.Size = UDim2.new(1, 0, 0, 15)
+            SubLabel.Position = UDim2.new(0, 50, 0, 28)
+            SubLabel.Size = UDim2.new(1, -60, 0, 15)
             SubLabel.Font = Enum.Font.Gotham
             SubLabel.Text = config.Invite or "discord.gg/invite"
             SubLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
             SubLabel.TextSize = 11
+            SubLabel.TextXAlignment = Enum.TextXAlignment.Left
             
             DiscordBtn.MouseButton1Click:Connect(function()
                 -- Copy to clipboard
@@ -785,8 +950,8 @@ function NixoUI:CreateWindow(config)
                     setclipboard(config.Invite or "")
                     
                     -- Visual feedback
-                    local originalText = DiscordBtn.Text
-                    DiscordBtn.Text = "✅ Copied to Clipboard!"
+                    local originalText = TitleLabel.Text
+                    TitleLabel.Text = "✅ Copied to Clipboard!"
                     
                     TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {
                         BackgroundColor3 = Color3.fromRGB(67, 181, 129)
@@ -794,15 +959,15 @@ function NixoUI:CreateWindow(config)
                     
                     task.wait(2)
                     
-                    DiscordBtn.Text = originalText
+                    TitleLabel.Text = originalText
                     TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {
                         BackgroundColor3 = Color3.fromRGB(88, 101, 242)
                     }):Play()
                 else
                     -- Fallback if setclipboard not available
-                    DiscordBtn.Text = "⚠️ Clipboard not supported"
+                    TitleLabel.Text = "⚠️ Clipboard not supported"
                     task.wait(2)
-                    DiscordBtn.Text = config.Name or "Join Discord Server"
+                    TitleLabel.Text = config.Name or "Join Discord Server"
                 end
                 
                 if config.Callback then
