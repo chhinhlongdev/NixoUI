@@ -380,20 +380,63 @@ function NixoUI:CreateWindow(config)
 
     
     -- Button Interactions
+    local isMinimized = false
+    local isMaximized = false
+    local originalSize = UDim2.new(0, 900, 0, 600)
+    local originalPosition = UDim2.new(0.5, -450, 0.5, -300)
+    
     MinimizeBtn.MouseButton1Click:Connect(function()
-        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 900, 0, 60)
-        }):Play()
+        if not isMinimized then
+            -- Minimize window
+            isMinimized = true
+            TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+                Size = UDim2.new(0, 0, 0, 0)
+            }):Play()
+            task.wait(0.3)
+            MainFrame.Visible = false
+            MinimizedIcon.Visible = true
+            TweenService:Create(MinimizedIcon, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+                Size = UDim2.new(0, 50, 0, 50)
+            }):Play()
+        end
+    end)
+    
+    MinimizedIcon.MouseButton1Click:Connect(function()
+        if isMinimized then
+            -- Restore from minimize
+            isMinimized = false
+            MinimizedIcon.Visible = false
+            MainFrame.Visible = true
+            MainFrame.Size = UDim2.new(0, 0, 0, 0)
+            TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+                Size = isMaximized and UDim2.new(0, 1200, 0, 700) or originalSize
+            }):Play()
+        end
     end)
     
     MaximizeBtn.MouseButton1Click:Connect(function()
-        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 900, 0, 600)
-        }):Play()
+        if not isMaximized then
+            -- Maximize window
+            isMaximized = true
+            TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Size = UDim2.new(0, 1200, 0, 700),
+                Position = UDim2.new(0.5, -600, 0.5, -350)
+            }):Play()
+        else
+            -- Restore to original size
+            isMaximized = false
+            TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Size = originalSize,
+                Position = originalPosition
+            }):Play()
+        end
     end)
     
     CloseBtn.MouseButton1Click:Connect(function()
         TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+            Size = UDim2.new(0, 0, 0, 0)
+        }):Play()
+        TweenService:Create(MinimizedIcon, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
             Size = UDim2.new(0, 0, 0, 0)
         }):Play()
         task.wait(0.3)
@@ -402,24 +445,51 @@ function NixoUI:CreateWindow(config)
     
     -- Hover Effects
     CloseBtn.MouseEnter:Connect(function()
-        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 115, 107)}):Play()
+        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(255, 115, 107),
+            Size = UDim2.new(0, 13, 0, 13)
+        }):Play()
+        CloseBtn.Text = "×"
+        CloseBtn.TextSize = 12
     end)
     CloseBtn.MouseLeave:Connect(function()
-        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 95, 87)}):Play()
+        TweenService:Create(CloseBtn, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(255, 95, 87),
+            Size = UDim2.new(0, 12, 0, 12)
+        }):Play()
+        CloseBtn.Text = ""
     end)
     
     MinimizeBtn.MouseEnter:Connect(function()
-        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 209, 66)}):Play()
+        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(255, 209, 66),
+            Size = UDim2.new(0, 13, 0, 13)
+        }):Play()
+        MinimizeBtn.Text = "−"
+        MinimizeBtn.TextSize = 12
     end)
     MinimizeBtn.MouseLeave:Connect(function()
-        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 189, 46)}):Play()
+        TweenService:Create(MinimizeBtn, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(255, 189, 46),
+            Size = UDim2.new(0, 12, 0, 12)
+        }):Play()
+        MinimizeBtn.Text = ""
     end)
     
     MaximizeBtn.MouseEnter:Connect(function()
-        TweenService:Create(MaximizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 221, 84)}):Play()
+        TweenService:Create(MaximizeBtn, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(60, 221, 84),
+            Size = UDim2.new(0, 13, 0, 13)
+        }):Play()
+        MaximizeBtn.Text = isMaximized and "◱" or "◻"
+        MaximizeBtn.TextSize = 10
     end)
     MaximizeBtn.MouseLeave:Connect(function()
-        TweenService:Create(MaximizeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 201, 64)}):Play()
+        TweenService:Create(MaximizeBtn, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(40, 201, 64),
+            Size = UDim2.new(0, 12, 0, 12)
+        }):Play()
+        MaximizeBtn.Text = ""
     end)
     
     -- Create Tab Function
